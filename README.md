@@ -21,6 +21,10 @@ raglite-web/
 └── .env
 ```
 
+## Raglite:
+https://github.com/superlinear-ai/raglite
+
+
 ## Prerequisites
 - Docker and Docker Compose
 - OpenAI API key
