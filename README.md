@@ -2,6 +2,19 @@
 
 A web-based interface for document processing and querying using RAGLite, Ollama, and OpenAI. This application allows users to upload documents and ask questions about their content using a combination of local and cloud-based AI models.
 
+⚠️ **IMPORTANT SYSTEM REQUIREMENTS AND RESOURCE WARNING**
+- This application uses large language models and will consume significant system resources
+- Minimum requirements:
+  - CPU: 4+ cores recommended
+  - RAM: At least 32GB of free memory
+  - Storage: 10GB+ free space
+- **During operation:**
+  - CPU usage will spike to 80-100% during model loading and inference
+  - Memory usage can exceed 8GB when processing documents and running queries
+  - Initial model download requires ~4GB of storage
+- Consider closing other resource-intensive applications while running this system
+- Not recommended for systems with limited resources or laptops running on battery
+
 ## Project Structure
 ```
 raglite-web/
