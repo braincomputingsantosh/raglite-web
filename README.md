@@ -48,7 +48,7 @@ echo "OPENAI_API_KEY=your-openai-api-key-here" > .env
 docker-compose up --build
 ```
 
-The application will be available at http://localhost:5000
+The application will be available at http://localhost:5454
 
 ## Features
 - Document upload support for various formats (PDF, TXT, DOC, DOCX)
