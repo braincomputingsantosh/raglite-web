@@ -127,3 +127,8 @@ docker-compose up --build
 4. For error resolution:
 Let's try a simple, concrete question to test if the RAG system is working. Try this:
 "What is the main topic discussed in this document?"
+
+
+## Screen shot:
+
+![Screenshot 2024-12-02 at 2 12 46 PM](https://github.com/user-attachments/assets/c5419137-29cb-46c9-8723-a19b669ba35f)
