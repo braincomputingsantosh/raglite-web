@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RAGLite Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>RAGLite Document Processing and Query System</h1>
+        
+        <div class="upload-section">
+            <h2>Upload Documents</h2>
+            <form id="uploadForm">
+                <input type="file" id="files" name="files[]" multiple accept=".pdf,.txt,.doc,.docx">
+                <button type="submit">Upload</button>
+            </form>
+            <div id="uploadProgress" class="progress-bar" style="display: none;">
+                <div class="progress"></div>
+            </div>
+            <div id="uploadStatus"></div>
+        </div>
+
+        <div class="query-section">
+            <h2>Query Documents</h2>
+            <form id="queryForm">
+                <textarea id="query" name="query" placeholder="Enter your query here..."></textarea>
+                <button type="submit">Submit Query</button>
+            </form>
+            <div id="queryProgress" class="progress-bar" style="display: none;">
+                <div class="progress"></div>
+            </div>
+            <div id="response"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            const files = document.getElementById('files').files;
+            const progress = document.getElementById('uploadProgress');
+            const status = document.getElementById('uploadStatus');
+            
+            if (files.length === 0) {
+                status.innerHTML = "Please select at least one file.";
+                return;
+            }
+            
+            for (let file of files) {
+                formData.append('files[]', file);
+            }
+            
+            progress.style.display = 'block';
+            progress.querySelector('.progress').style.width = '50%';
+            status.innerHTML = 'Uploading and processing files...';
+            
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    status.innerHTML = `Successfully processed: ${result.processed_files.join(', ')}`;
+                    progress.querySelector('.progress').style.width = '100%';
+                } else {
+                    status.innerHTML = `Error: ${result.error}`;
+                    progress.querySelector('.progress').style.width = '0%';
+                }
+            } catch (error) {
+                status.innerHTML = `Error: ${error.message}`;
+                progress.querySelector('.progress').style.width = '0%';
+            }
+            
+            setTimeout(() => {
+                progress.style.display = 'none';
+            }, 2000);
+        };
+
+        document.getElementById('queryForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const query = document.getElementById('query').value;
+            const progress = document.getElementById('queryProgress');
+            const response = document.getElementById('response');
+            
+            if (!query.trim()) {
+                response.innerHTML = "Please enter a query.";
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('query', query);
+            
+            progress.style.display = 'block';
+            progress.querySelector('.progress').style.width = '50%';
+            response.innerHTML = 'Processing query...';
+            
+            try {
+                const result = await fetch('/query', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await result.json();
+                
+                if (data.success) {
+                    response.innerHTML = data.response;
+                    progress.querySelector('.progress').style.width = '100%';
+                } else {
+                    response.innerHTML = `Error: ${data.error}`;
+                    progress.querySelector('.progress').style.width = '0%';
+                }
+            } catch (error) {
+                response.innerHTML = `Error: ${error.message}`;
+                progress.querySelector('.progress').style.width = '0%';
+            }
+            
+            setTimeout(() => {
+                progress.style.display = 'none';
+            }, 2000);
+        };
+    </script>
+</body>
+</html>
