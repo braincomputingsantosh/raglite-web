@@ -146,6 +146,11 @@ Let's try a simple, concrete question to test if the RAG system is working. Try 
 "What is the main topic discussed in this document?"
 
 
-## Screen shot:
+## Screen shot 1:
 
 ![Screenshot 2024-12-02 at 2 12 46 PM](https://github.com/user-attachments/assets/c5419137-29cb-46c9-8723-a19b669ba35f)
+
+## Screen shot 2:
+
+![image](https://github.com/user-attachments/assets/d3211274-6007-4242-9771-916e15280954)
+
